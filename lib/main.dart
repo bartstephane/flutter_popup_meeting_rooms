@@ -12,10 +12,6 @@ class PopupMeetingRooms extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: Strings.appTitle,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: const Home(
         title: Strings.appTitle,
         key: Key("1"),
