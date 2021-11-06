@@ -17,32 +17,34 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: FutureBuilder<List<Floor>>(
-        future: fetchJson(), // fetchRooms(http.Client()),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            print(snapshot);
-            return Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: Text(
-                  'Error: ${snapshot.error}'
-              ),
-            );
-          } else if (snapshot.hasData) {
-            return Building(
-              key: const Key("1"),
-              floors: snapshot.data!,
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: FutureBuilder<List<Floor>>(
+          future: fetchJson(), // fetchRooms(http.Client()),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              print(snapshot);
+              return Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text(
+                    'Error: ${snapshot.error}'
+                ),
+              );
+            } else if (snapshot.hasData) {
+              return Building(
+                key: const Key("1"),
+                floors: snapshot.data!,
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
       ),
     );
   }

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:popup_meeting_rooms/business/floor.dart';
-import 'package:popup_meeting_rooms/business/room.dart';
 import 'package:popup_meeting_rooms/widgets/floor_details.dart';
 
-class Building extends StatelessWidget {
+class Building extends StatefulWidget {
   const Building({required Key key, required this.floors}) : super(key: key);
 
   final List<Floor> floors;
+
+  _BuildingState createState() => _BuildingState();
+
+}
+
+class _BuildingState extends State<Building> {
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +19,7 @@ class Building extends StatelessWidget {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
       ),
-      itemCount: floors.length,
+      itemCount: widget.floors.length,
       itemBuilder: (context, index) {
         return Card(
           child: InkWell(
@@ -31,7 +36,7 @@ class Building extends StatelessWidget {
               children: <Widget>[
                 ListTile(
                   title: Text(
-                    floors[index].building_floor.toString() + '. floor',
+                    widget.floors[index].building_floor.toString() + '. floor',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
