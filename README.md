@@ -1,16 +1,16 @@
 # popup_meeting_rooms
 
-A new Flutter application.
+Installing dependencies
 
-## Getting Started
+    flutter pub add json_annotation
+        Defines the annotations used by json_serializable to create code for JSON serialization and deserialization.
 
-This project is a starting point for a Flutter application.
+    dart pub add json_serializable --dev
+        To generate to/from JSON code for a class
 
-A few resources to get you started if this is your first Flutter project:
+    dart pub add build_runner --dev
+        This package provides a concrete way of generating files using Dart code, outside of tools like pub.
+        Unlike pub serve/build, files are always generated directly on disk, and rebuilds are incremental.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+        flutter pub run build_runner build
+            Runs the code generator that generates the serialization boilerplate for our models whenever they are needed.

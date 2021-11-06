@@ -7,49 +7,49 @@
   },
   {
     "id":104,
-    "room_number":"Jupiter",
+    "room_name":"Jupiter",
     "building_floor":2,
     "detected":true
   },
   {
     "id":103,
-    "room_number":"Mars",
+    "room_name":"Mars",
     "building_floor":2,
     "detected":true
   },
   {
     "id":102,
-    "room_number":"Earth",
+    "room_name":"Earth",
     "building_floor":3,
     "detected":false
   },
   {
     "id":106,
-    "room_number":"Ganymede",
+    "room_name":"Ganymede",
     "building_floor":3,
     "detected":false
   },
   {
     "id":108,
-    "room_number":"Pluto",
+    "room_name":"Pluto",
     "building_floor":3,
     "detected":false
   },
   {
     "id":105,
-    "room_number":"Saturn",
+    "room_name":"Saturn",
     "building_floor":3,
     "detected":true
   },
   {
     "id":101,
-    "room_number":"Venus",
+    "room_name":"Venus",
     "building_floor":3,
     "detected":false
   },
   {
     "id":107,
-    "room_number":"Callisto",
+    "room_name":"Callisto",
     "building_floor":4,
     "detected":false
   }
