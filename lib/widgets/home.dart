@@ -48,7 +48,11 @@ class _HomeState extends State<Home> {
                             fontSize: 16.0
                           ),
                         ),
-                      background: Image.asset(Strings.appBanner, fit: BoxFit.scaleDown, scale: 2),
+                      background: Image.asset(
+                          Strings.appBanner,
+                          fit: BoxFit.scaleDown,
+                          scale: 2
+                      ),
                       centerTitle: true,
                     ),
                   ),
@@ -98,13 +102,20 @@ class _HomeState extends State<Home> {
                 floor.floor_name,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                  fontSize: 20,
+                ),
+              ),
+              subtitle: Text(
+                _countAvailableRooms(floor).toString() + ' room(s) available',
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontSize: 16,
                 ),
               ),
             ),
             Divider(height: 0),
             Container(
-              margin: EdgeInsets.fromLTRB(3, 3, 3, 3),
+              margin: EdgeInsets.fromLTRB(4, 4, 4, 4),
               padding: EdgeInsets.fromLTRB(6, 6, 6, 6),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -125,19 +136,22 @@ class _HomeState extends State<Home> {
 
   }
 
-  Color _changeFloorColor(Floor floor) {
+  int _countAvailableRooms(Floor floor) {
     int availableRooms = 0;
     for(Room room in floor.floor_rooms) {
-      if(room.detected == false) {
+      if (room.detected == false) {
         availableRooms++;
       }
-      if(availableRooms > 0) {
-        return Colors.greenAccent;
-      } else {
-        return Colors.redAccent;
-      }
     }
-    return Colors.white;
+    return availableRooms;
+  }
+
+  Color _changeFloorColor(Floor floor) {
+    if(_countAvailableRooms(floor) > 0) {
+      return Colors.greenAccent;
+    } else {
+      return Colors.redAccent;
+    }
   }
 
 }

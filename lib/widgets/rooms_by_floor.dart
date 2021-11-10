@@ -26,9 +26,12 @@ class _RoomsByFloorState extends State<RoomsByFloor> {
         (index) => Container(
           child: Text(
             floor.floor_rooms[index].room_name,
+            style: TextStyle(
+              fontSize: 16,
+            ),
           ),
           margin: EdgeInsets.fromLTRB(3, 3, 3, 3),
-          padding: EdgeInsets.fromLTRB(6, 2, 6, 2),
+          padding: EdgeInsets.fromLTRB(6, 6, 6, 6),
           decoration: BoxDecoration(
             border: Border.all(
               color: _changeRoomColor(floor.floor_rooms[index]),
