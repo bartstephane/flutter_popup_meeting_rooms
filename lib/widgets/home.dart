@@ -105,6 +105,7 @@ class _HomeState extends State<Home> {
                   fontSize: 20,
                 ),
               ),
+              minVerticalPadding: 2, // TODO find how implement a greater space between title and subtitle
               subtitle: Text(
                 _countAvailableRooms(floor).toString() + ' room(s) available',
                 style: TextStyle(
@@ -113,7 +114,6 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            Divider(height: 0),
             Container(
               margin: EdgeInsets.fromLTRB(4, 4, 4, 4),
               padding: EdgeInsets.fromLTRB(6, 6, 6, 6),
