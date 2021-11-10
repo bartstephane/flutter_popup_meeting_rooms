@@ -1,0 +1,71 @@
+[
+  {
+    "floor_id": 1,
+    "floor_name": "First floor",
+    "floor_rooms": [
+      {
+        "room_id":100,
+        "room_name":"Mercury",
+        "detected":false
+      }
+    ]
+  },
+  {
+    "floor_id": 2,
+    "floor_name": "Second floor",
+    "floor_rooms": [
+      {
+        "room_id":104,
+        "room_name":"Jupiter",
+        "detected":true
+      },
+      {
+        "room_id":103,
+        "room_name":"Mars",
+        "detected":true
+      }
+    ]
+  },
+  {
+    "floor_id": 3,
+    "floor_name": "Third floor",
+    "floor_rooms": [
+      {
+        "room_id":102,
+        "room_name":"Earth",
+        "detected":false
+      },
+      {
+        "room_id":106,
+        "room_name":"Ganymede",
+        "detected":false
+      },
+      {
+        "room_id":108,
+        "room_name":"Pluto",
+        "detected":false
+      },
+      {
+        "room_id":105,
+        "room_name":"Saturn",
+        "detected":true
+      },
+      {
+        "room_id":101,
+        "room_name":"Venus",
+        "detected":false
+      }
+    ]
+  },
+  {
+    "floor_id": 4,
+    "floor_name": "Fourth floor",
+    "floor_rooms": [
+      {
+        "room_id":107,
+        "room_name":"Callisto",
+        "detected":false
+      }
+    ]
+  }
+]

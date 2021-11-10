@@ -12,5 +12,7 @@ Installing dependencies
         This package provides a concrete way of generating files using Dart code, outside of tools like pub.
         Unlike pub serve/build, files are always generated directly on disk, and rebuilds are incremental.
 
+        In pubspec.yaml, pub get to update dependencies before to run build_runner
+
         flutter pub run build_runner build
             Runs the code generator that generates the serialization boilerplate for our models whenever they are needed.

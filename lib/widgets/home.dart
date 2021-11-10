@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:popup_meeting_rooms/business/floor.dart';
 import 'package:popup_meeting_rooms/business/room.dart';
 import 'package:popup_meeting_rooms/config/strings.dart';
-import 'package:popup_meeting_rooms/widgets/building.dart';
 import 'package:popup_meeting_rooms/widgets/floor_details.dart';
 import 'package:popup_meeting_rooms/widgets/rooms_by_floor.dart';
 
@@ -82,8 +81,13 @@ class _HomeState extends State<Home> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => FloorDetails(
-                    key: Key(floor.building_floor.toString()),)),
+              builder: (context) => FloorDetails(
+                key: Key(
+                    floor.floor_id.toString()
+                ),
+                floor: floor,
+              ),
+            ),
           );
         },
         child: Column(
@@ -91,7 +95,7 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             ListTile(
               title: Text(
-                floor.building_floor.toString() + '. floor',
+                floor.floor_name,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -100,33 +104,33 @@ class _HomeState extends State<Home> {
             ),
             Divider(height: 0),
             Container(
-                margin: EdgeInsets.fromLTRB(3, 3, 3, 3),
-                padding: EdgeInsets.fromLTRB(6, 6, 6, 6),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
+              margin: EdgeInsets.fromLTRB(3, 3, 3, 3),
+              padding: EdgeInsets.fromLTRB(6, 6, 6, 6),
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Container(
                 child: RoomsByFloor(
-                  key: Key(
-                      floor.building_floor.toString()
-                  ),
+                  key: Key(floor.floor_id.toString()),
                   floor: floor,
                 ),
+              ),
             ),
           ],
         ),
       ),
       elevation: 1.0,
-      color: _changeColor(floor),
+      color: _changeFloorColor(floor),
     );
+
   }
-  
-  Color _changeColor(Floor floor) {
+
+  Color _changeFloorColor(Floor floor) {
     int availableRooms = 0;
-    for(Room room in floor.rooms) {
+    for(Room room in floor.floor_rooms) {
       if(room.detected == false) {
         availableRooms++;
       }
-      print('Floor ' + floor.building_floor.toString() + ' : ' + availableRooms.toString() + ' available rooms');
       if(availableRooms > 0) {
         return Colors.greenAccent;
       } else {
@@ -135,7 +139,7 @@ class _HomeState extends State<Home> {
     }
     return Colors.white;
   }
-  
+
 }
 
 /*
@@ -165,26 +169,15 @@ Future<List<Room>> fetchRooms() async {
   return parseRooms(data);
 }
 */
-List<Floor> parseFloors(String data) {
+List<Floor> parseData(String data) {
 
   final parsed = jsonDecode(data).cast<Map<String, dynamic>>();
 
-  List<Room> rooms = parsed.map<Room>((json) => Room.fromJson(json)).toList();
-
-  List<Floor> floors = List.empty(growable: true);
-
-  for(int i = 1; i <= rooms[rooms.length - 1].building_floor; i++) {
-    List<Room> floorRooms = List.from(rooms);
-    Floor floor = Floor(building_floor: i, rooms: floorRooms);
-    floor.rooms.removeWhere((element) => element.building_floor != i);
-    floors.add(floor);
-  }
-
-  return floors;
+  return parsed.map<Floor>((json) => Floor.fromJson(json)).toList();
 
 }
 
 Future<List<Floor>> fetchJson() async {
-  final String data = await rootBundle.loadString('assets/data.json');
-  return parseFloors(data);
+  final String data = await rootBundle.loadString('assets/data_v2.json');
+  return parseData(data);
 }

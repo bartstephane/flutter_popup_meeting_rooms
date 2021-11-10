@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:popup_meeting_rooms/business/floor.dart';
 
 class FloorDetails extends StatefulWidget {
-  FloorDetails({required Key key}) : super(key: key);
+  FloorDetails({required Key key, required Floor floor}) : super(key: key);
 
   @override
   _FloorDetailsState createState() => _FloorDetailsState();
