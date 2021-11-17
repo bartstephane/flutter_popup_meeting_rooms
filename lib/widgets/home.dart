@@ -7,6 +7,8 @@ import 'package:popup_meeting_rooms/config/strings.dart';
 import 'package:popup_meeting_rooms/widgets/floor_details.dart';
 import 'package:popup_meeting_rooms/widgets/rooms_by_floor.dart';
 
+import 'about.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key, required this.title}) : super(key: key);
 
@@ -39,7 +41,7 @@ class _HomeState extends State<Home> {
                   SliverAppBar(
                     pinned: true,
                     expandedHeight: 120.0,
-                    backgroundColor: Color.fromARGB(1, 0, 127, 163),
+                    backgroundColor: Colors.blueAccent,
                     flexibleSpace: FlexibleSpaceBar(
                       title: Text(
                         Strings.appTitle,
@@ -72,6 +74,37 @@ class _HomeState extends State<Home> {
               );
             }
           },
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.yellowAccent,
+          child: Icon(
+            Icons.settings,
+            color: Colors.black,
+          ),
+          onPressed: () {
+
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+        bottomNavigationBar: BottomAppBar(
+          child: Row(
+            children: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.info_outline,
+                  color: Colors.blueAccent,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => About()),
+                  );
+                },
+              ),
+            ],
+          ),
+          elevation: 5.0,
+          color: Colors.blueAccent,
         ),
       ),
     );

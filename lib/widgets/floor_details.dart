@@ -24,7 +24,7 @@ class _FloorDetailsState extends State<FloorDetails> {
             SliverAppBar(
               pinned: true,
               expandedHeight: 120.0,
-              backgroundColor: Color.fromARGB(1, 0, 127, 163),
+              backgroundColor: Colors.blueAccent,
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(
                   widget.floor.floor_name,
