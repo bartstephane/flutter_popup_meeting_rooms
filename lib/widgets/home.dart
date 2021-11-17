@@ -103,6 +103,7 @@ class _HomeState extends State<Home> {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
+                  //color: Colors.white,
                 ),
               ),
               minVerticalPadding: 2, // TODO find how implement a greater space between title and subtitle
@@ -111,6 +112,7 @@ class _HomeState extends State<Home> {
                 style: TextStyle(
                   fontStyle: FontStyle.italic,
                   fontSize: 16,
+                  //color: Colors.white,
                 ),
               ),
             ),

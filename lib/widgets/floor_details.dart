@@ -85,6 +85,51 @@ class _FloorDetailsState extends State<FloorDetails> {
                 ),
               ),
             ),
+            Container(
+              margin: EdgeInsets.fromLTRB(4, 4, 4, 4),
+              padding: EdgeInsets.fromLTRB(6, 6, 6, 6),
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Row(
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      Text(
+                        "Temperature: ",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      Text(
+                        "CO2 level",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Text(
+                        "20 °C",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      Text(
+                        "5%",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       elevation: 1.0,
