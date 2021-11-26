@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:popup_meeting_rooms/business/building.dart';
 import 'package:popup_meeting_rooms/business/floor.dart';
 import 'package:popup_meeting_rooms/business/room.dart';
 import 'package:popup_meeting_rooms/config/strings.dart';
@@ -10,9 +11,9 @@ import 'package:popup_meeting_rooms/widgets/rooms_by_floor.dart';
 import 'about.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key, required this.title}) : super(key: key);
+  const Home({Key? key, required this.snapshot}) : super(key: key);
 
-  final String title;
+  final AsyncSnapshot<List<Building>> snapshot;
 
   _HomeState createState() => _HomeState();
 }
@@ -120,7 +121,7 @@ class _HomeState extends State<Home> {
             MaterialPageRoute(
               builder: (context) => FloorDetails(
                 key: Key(
-                    floor.floor_id.toString()
+                    floor.number.toString()
                 ),
                 floor: floor,
               ),
@@ -132,7 +133,7 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             ListTile(
               title: Text(
-                floor.floor_name,
+                floor.number.toString() + '. floor',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -157,7 +158,7 @@ class _HomeState extends State<Home> {
               ),
               child: Container(
                 child: RoomsByFloor(
-                  key: Key(floor.floor_id.toString()),
+                  key: Key(floor.number.toString()),
                   floor: floor,
                 ),
               ),
@@ -173,7 +174,7 @@ class _HomeState extends State<Home> {
 
   int _countAvailableRooms(Floor floor) {
     int availableRooms = 0;
-    for(Room room in floor.floor_rooms) {
+    for(Room room in floor.rooms) {
       if (room.detected == false) {
         availableRooms++;
       }

@@ -17,7 +17,7 @@ class _RoomsByFloorState extends State<RoomsByFloor> {
   @override
   Widget build(BuildContext context) {
     return Row(
-        children: _listRooms(widget.floor, widget.floor.floor_rooms.length)
+        children: _listRooms(widget.floor, widget.floor.rooms.length)
     );
   }
 
@@ -25,7 +25,7 @@ class _RoomsByFloorState extends State<RoomsByFloor> {
     length,
         (index) => Container(
           child: Text(
-            floor.floor_rooms[index].room_name,
+            floor.rooms[index].room_name,
             style: TextStyle(
               fontSize: 16,
             ),
@@ -34,10 +34,10 @@ class _RoomsByFloorState extends State<RoomsByFloor> {
           padding: EdgeInsets.fromLTRB(6, 6, 6, 6),
           decoration: BoxDecoration(
             border: Border.all(
-              color: _changeRoomColor(floor.floor_rooms[index]),
+              color: _changeRoomColor(floor.rooms[index]),
             ),
             borderRadius: BorderRadius.circular(20),
-            color: _changeRoomColor(floor.floor_rooms[index]),
+            color: _changeRoomColor(floor.rooms[index]),
           ),
         ),
   );

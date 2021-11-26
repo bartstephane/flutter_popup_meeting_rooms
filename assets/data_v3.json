@@ -1,0 +1,70 @@
+[
+  {
+    "name": "Helsinki",
+    "floors": [
+      {
+        "number": 1,
+        "rooms": [
+          {
+            "id": 100,
+            "room_name": "Mercury",
+            "detected": false
+          },
+          {
+            "id": 101,
+            "room_name": "Venus",
+            "detected": false
+          },
+          {
+            "id": 102,
+            "room_name": "Earth",
+            "detected": false
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "rooms": [
+          {
+            "id":103,
+            "room_name":"Mars",
+            "detected":false
+          },
+          {
+            "id":104,
+            "room_name":"Jupiter",
+            "detected":false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name":"Oulu",
+    "floors":[
+      {
+        "rooms":[
+          {"id":105,
+            "room_name":"Saturn",
+            "detected":false
+          },
+          {
+            "id":106,
+            "room_name":"Ganymede",
+            "detected":false
+          },
+          {
+            "id":107,
+            "room_name":"Callisto",
+            "detected":false
+          },
+          {
+            "id":108,
+            "room_name":"Pluto",
+            "detected":false
+          }
+        ]
+      }
+    ]
+  }
+]

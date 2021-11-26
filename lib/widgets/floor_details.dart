@@ -27,7 +27,7 @@ class _FloorDetailsState extends State<FloorDetails> {
               backgroundColor: Colors.blueAccent,
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(
-                  widget.floor.floor_name,
+                  widget.floor.number.toString() + '. floor',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 16.0
@@ -43,9 +43,9 @@ class _FloorDetailsState extends State<FloorDetails> {
             SliverList(
               delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
-                      return _buildCard(widget.floor.floor_rooms[index]);
+                      return _buildCard(widget.floor.rooms[index]);
                       },
-                childCount: widget.floor.floor_rooms.length,
+                childCount: widget.floor.rooms.length,
               ),
             ),
           ],

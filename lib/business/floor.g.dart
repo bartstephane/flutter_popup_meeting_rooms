@@ -7,15 +7,13 @@ part of 'floor.dart';
 // **************************************************************************
 
 Floor _$FloorFromJson(Map<String, dynamic> json) => Floor(
-      json['floor_id'] as int,
-      json['floor_name'] as String,
-      (json['floor_rooms'] as List<dynamic>)
+      json['number'] as int,
+      (json['rooms'] as List<dynamic>)
           .map((e) => Room.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$FloorToJson(Floor instance) => <String, dynamic>{
-      'floor_id': instance.floor_id,
-      'floor_name': instance.floor_name,
-      'floor_rooms': instance.floor_rooms,
+      'number': instance.number,
+      'rooms': instance.rooms,
     };
