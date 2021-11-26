@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:popup_meeting_rooms/business/floor.dart';
 import 'package:popup_meeting_rooms/business/room.dart';
 import 'package:popup_meeting_rooms/config/strings.dart';
+import 'package:popup_meeting_rooms/widgets/about.dart';
 
 class FloorDetails extends StatefulWidget {
   FloorDetails({required Key key, required this.floor}) : super(key: key);
@@ -24,7 +25,7 @@ class _FloorDetailsState extends State<FloorDetails> {
             SliverAppBar(
               pinned: true,
               expandedHeight: 120.0,
-              backgroundColor: Colors.blueAccent,
+              backgroundColor: Colors.black,
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(
                   widget.floor.floor_name,
@@ -49,6 +50,37 @@ class _FloorDetailsState extends State<FloorDetails> {
               ),
             ),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.yellowAccent,
+          child: Icon(
+            Icons.settings,
+            color: Colors.black,
+          ),
+          onPressed: () {
+
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+        bottomNavigationBar: BottomAppBar(
+          child: Row(
+            children: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.info_outline,
+                  color: Colors.yellowAccent,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => About()),
+                  );
+                },
+              ),
+            ],
+          ),
+          elevation: 5.0,
+          color: Colors.black,
         ),
       ),
     );

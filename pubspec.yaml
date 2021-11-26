@@ -64,7 +64,7 @@ flutter:
   assets:
     - assets/data.json
     - assets/data_v2.json
-    - assets/headerPic.jpg
+    - assets/headerPic.jfif
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

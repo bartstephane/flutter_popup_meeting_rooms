@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
                   SliverAppBar(
                     pinned: true,
                     expandedHeight: 120.0,
-                    backgroundColor: Colors.blueAccent,
+                    backgroundColor: Colors.black,
                     flexibleSpace: FlexibleSpaceBar(
                       title: Text(
                         Strings.appTitle,
@@ -92,7 +92,7 @@ class _HomeState extends State<Home> {
               IconButton(
                 icon: Icon(
                   Icons.info_outline,
-                  color: Colors.blueAccent,
+                  color: Colors.yellowAccent,
                 ),
                 onPressed: () {
                   Navigator.push(
@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
             ],
           ),
           elevation: 5.0,
-          color: Colors.blueAccent,
+          color: Colors.black,
         ),
       ),
     );

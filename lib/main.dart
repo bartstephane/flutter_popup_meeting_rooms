@@ -14,7 +14,6 @@ class PopupMeetingRooms extends StatelessWidget {
     return MaterialApp(
       home: const Home(
         title: Strings.appTitle,
-        key: Key("1"),
       ),
     );
   }

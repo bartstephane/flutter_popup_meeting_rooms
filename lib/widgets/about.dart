@@ -16,7 +16,7 @@ class About extends StatelessWidget {
                 child: Column(
                   children: [
                     ListTile(
-                      title: Text("developedBy",
+                      title: Text("developed by",
                           style: TextStyle(fontWeight: FontWeight.w500,
                               color: Colors.blueAccent)
                       ),
