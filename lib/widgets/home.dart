@@ -1,18 +1,19 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:popup_meeting_rooms/business/building.dart';
 import 'package:popup_meeting_rooms/business/floor.dart';
 import 'package:popup_meeting_rooms/business/room.dart';
 import 'package:popup_meeting_rooms/config/strings.dart';
 import 'package:popup_meeting_rooms/widgets/floor_details.dart';
 import 'package:popup_meeting_rooms/widgets/rooms_by_floor.dart';
-
 import 'about.dart';
+import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
   const Home({Key? key, required this.title}) : super(key: key);
 
   final String title;
+
 
   _HomeState createState() => _HomeState();
 }
@@ -23,8 +24,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: FutureBuilder<List<Floor>>(
-          future: fetchJson(), // fetchRooms(http.Client()),
+        body: FutureBuilder<List<Building>>(
+          future: fetchData(http.Client()), // fetchRooms(http.Client()),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               print(snapshot);
@@ -61,9 +62,9 @@ class _HomeState extends State<Home> {
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
-                            return _buildCard(snapshot.data![index]);
+                            return _buildCard(snapshot.data![0].floors[index]);
                           },
-                      childCount: snapshot.data!.length,
+                      childCount: snapshot.data![0].floors.length,
                     ),
                   ),
                 ],
@@ -119,9 +120,6 @@ class _HomeState extends State<Home> {
             context,
             MaterialPageRoute(
               builder: (context) => FloorDetails(
-                key: Key(
-                    floor.floor_id.toString()
-                ),
                 floor: floor,
               ),
             ),
@@ -132,7 +130,7 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             ListTile(
               title: Text(
-                floor.floor_name,
+                floor.id.toString() + '. floor',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -157,7 +155,6 @@ class _HomeState extends State<Home> {
               ),
               child: Container(
                 child: RoomsByFloor(
-                  key: Key(floor.floor_id.toString()),
                   floor: floor,
                 ),
               ),
@@ -173,7 +170,7 @@ class _HomeState extends State<Home> {
 
   int _countAvailableRooms(Floor floor) {
     int availableRooms = 0;
-    for(Room room in floor.floor_rooms) {
+    for(Room room in floor.rooms) {
       if (room.detected == false) {
         availableRooms++;
       }
@@ -191,42 +188,44 @@ class _HomeState extends State<Home> {
 
 }
 
-/*
-Future<List<PopupMeetingRoom>> fetchPopupMeetingRooms(http.Client client) async {
+Future<List<Building>> fetchData(http.Client client) async {
   final response = await client
-      .get(Uri.parse('http://206.189.16.14/getAllRooms'));
+      .get(Uri.parse('http://206.189.16.14/getAllRoomsTesting'));
 
   // Use the compute function to run parsePhotos in a separate isolate.
-  return compute(parsePopupMeetingRooms, response.body);
+  return parseData(response.body);
 }
 
 // A function that converts a response body into a List<Photo>.
-List<PopupMeetingRoom> parsePopupMeetingRooms(String responseBody) {
+List<Building> parseData(String responseBody) {
+
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
-  return parsed.map<PopupMeetingRoom>((json) => PopupMeetingRoom.fromJson(json)).toList();
+  return parsed.map<Building>((json) => Building.fromJson(json)).toList();
 }
-*/
 /*
-List<Room> parseRooms(String data) {
-  final parsed = jsonDecode(data).cast<Map<String, dynamic>>();
-  return parsed.map<Room>((json) => Room.fromJson(json)).toList();
+update(http.Client client) async {
+  final updateResponse = await client
+      .get(Uri.parse('http://206.189.16.14:8080/register'));
+
+  final parsedUpdate = jsonDecode(updateResponse.body).cast<Map<String, dynamic>>();
+
+  int floorToUpdate = parsedUpdate.building_floor;
+  int roomToUpdate = parsedUpdate.id;
+
+  findRoom(floorToUpdate, roomToUpdate);
+
 }
 
-Future<List<Room>> fetchRooms() async {
-  final String data = await rootBundle.loadString('assets/data.json');
-  return parseRooms(data);
+Room? findFloor(int floorNumber, int roomId) {
+  for (Floor floor in snapshot.data![0].floors) {
+    if (floor.id == floorNumber) {
+      for (Room room in floor.rooms) {
+        if (room.id == roomId) {
+          return room;
+        }
+      }
+    }
+  }
 }
 */
-List<Floor> parseData(String data) {
-
-  final parsed = jsonDecode(data).cast<Map<String, dynamic>>();
-
-  return parsed.map<Floor>((json) => Floor.fromJson(json)).toList();
-
-}
-
-Future<List<Floor>> fetchJson() async {
-  final String data = await rootBundle.loadString('assets/data_v2.json');
-  return parseData(data);
-}

@@ -4,9 +4,9 @@ part 'room.g.dart';
 
 @JsonSerializable()
 class Room {
-  Room(this.room_id, this.room_name, this.detected);
+  Room(this.id, this.room_name, this.detected);
 
-  int room_id;
+  int id;
   String room_name;
   bool detected;
 

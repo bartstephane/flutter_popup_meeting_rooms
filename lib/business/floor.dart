@@ -5,11 +5,10 @@ part 'floor.g.dart';
 
 @JsonSerializable()
 class Floor {
-  Floor(this.floor_id, this.floor_name, this.floor_rooms);
+  Floor(this.id, this.rooms);
 
-  int floor_id;
-  String floor_name;
-  List<Room> floor_rooms;
+  int id;
+  List<Room> rooms;
 
   factory Floor.fromJson(Map<String, dynamic> json) => _$FloorFromJson(json);
   Map<String, dynamic> toJson() => _$FloorToJson(this);

@@ -7,13 +7,13 @@ part of 'room.dart';
 // **************************************************************************
 
 Room _$RoomFromJson(Map<String, dynamic> json) => Room(
-      json['room_id'] as int,
+      json['id'] as int,
       json['room_name'] as String,
       json['detected'] as bool,
     );
 
 Map<String, dynamic> _$RoomToJson(Room instance) => <String, dynamic>{
-      'room_id': instance.room_id,
+      'id': instance.id,
       'room_name': instance.room_name,
       'detected': instance.detected,
     };
