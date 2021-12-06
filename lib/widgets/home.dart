@@ -24,8 +24,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: FutureBuilder<List<Building>>(
-          future: fetchData(http.Client()), // fetchRooms(http.Client()),
+        body: StreamBuilder<List<Building>>(
+          stream: updateData(Duration(seconds: 5), http.Client()), // fetchRooms(http.Client()),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               print(snapshot);
@@ -35,7 +35,7 @@ class _HomeState extends State<Home> {
                     'Error: ${snapshot.error}'
                 ),
               );
-            } else if (snapshot.hasData) {
+            } else if (snapshot.connectionState == ConnectionState.active && snapshot.hasData) {
               return CustomScrollView(
                 shrinkWrap: true,
                 slivers: <Widget>[
@@ -187,7 +187,7 @@ class _HomeState extends State<Home> {
   }
 
 }
-
+/*
 Future<List<Building>> fetchData(http.Client client) async {
   final response = await client
       .get(Uri.parse('http://206.189.16.14/getAllRoomsTesting'));
@@ -203,6 +203,27 @@ List<Building> parseData(String responseBody) {
 
   return parsed.map<Building>((json) => Building.fromJson(json)).toList();
 }
+*/
+Future<List<Building>> getData(http.Client client) async {
+  final response = await client
+      .get(Uri.parse('http://206.189.16.14/getAllRoomsTesting'));
+
+  return parseData(response.body);
+}
+
+List<Building> parseData(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
+  return parsed.map<Building>((json) => Building.fromJson(json)).toList();
+}
+
+Stream<List<Building>> updateData(Duration refreshTime, http.Client client) async* {
+  while (true) {
+    await Future.delayed(refreshTime);
+    yield await getData(client);
+  }
+}
+
 /*
 update(http.Client client) async {
   final updateResponse = await client
