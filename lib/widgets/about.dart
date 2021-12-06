@@ -5,66 +5,123 @@ class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(Strings.about),
-      ),
-      body: Center(
-        child: ListView(
-          children: <Widget>[
-            SizedBox(
-              height: 70,
-              child: Card(
-                child: Column(
-                  children: [
-                    ListTile(
-                      title: Text(Strings.developedBy,
-                          style: TextStyle(fontWeight: FontWeight.w500,
-                              color: Colors.blueAccent)
-                      ),
-                    ),
-                  ],
+      body: CustomScrollView(
+        shrinkWrap: true,
+        slivers: <Widget>[
+          SliverAppBar(
+            pinned: true,
+            expandedHeight: 120.0,
+            backgroundColor: Colors.black,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(
+                Strings.about,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0
                 ),
               ),
+              background: Image.asset(
+                  Strings.appBanner,
+                  fit: BoxFit.scaleDown,
+                  scale: 2,
+              ),
+              centerTitle: true,
             ),
-            SizedBox(
-              height: 210,
-              child: Card(
-                child: Column(
-                  children: [
-                    ListTile(
-                      title: Text(Strings.developer,
-                          style: TextStyle(fontWeight: FontWeight.w500)),
-                      subtitle: Text(Strings.school),
-                      leading: Icon(
-                        Icons.person_outline,
-                        color: Colors.blue[500],
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                return _buildCard(index);
+                },
+              childCount: 1,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCard(int index) {
+    return Column(
+        children: <Widget>[
+          SizedBox(
+            height: 70,
+            child: Card(
+              color: Colors.black,
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      Strings.developedBy,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.yellowAccent
                       ),
                     ),
-                    Divider(
-                      thickness: 1.5,
-                    ),
-                    ListTile(
-                      title: Text(Strings.phone,
-                          style: TextStyle(fontWeight: FontWeight.w500)),
-                      leading: Icon(
-                        Icons.phone,
-                        color: Colors.blue[500],
-                      ),
-                    ),
-                    ListTile(
-                      title: Text(Strings.mail),
-                      leading: Icon(
-                        Icons.mail_outline,
-                        color: Colors.blue[500],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
+          ),
+          SizedBox(
+            height: 210,
+            child: Card(
+              color: Colors.black,
+              child: Column(
+                children: [
+                  ListTile(
+                    title: Text(
+                      Strings.developer,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.yellowAccent,
+                      ),
+                    ),
+                    subtitle: Text(
+                      Strings.school,
+                      style: TextStyle(
+                        color: Colors.yellowAccent,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.person_outline,
+                      color: Colors.yellowAccent,
+                    ),
+                  ),
+                  Divider(
+                    thickness: 1.5,
+                    color: Colors.yellowAccent,
+                  ),
+                  ListTile(
+                    title: Text(
+                      Strings.phone,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.yellowAccent,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.phone,
+                      color: Colors.yellowAccent,
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                      Strings.mail,
+                      style: TextStyle(
+                        color: Colors.yellowAccent,
+                      ),
+                    ),
+                    leading: Icon(
+                      Icons.mail_outline,
+                      color: Colors.yellowAccent,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
     );
   }
 }
