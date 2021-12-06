@@ -28,7 +28,7 @@ class _FloorDetailsState extends State<FloorDetails> {
               backgroundColor: Colors.black,
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(
-                  widget.floor.id.toString() + '. floor',
+                  widget.floor.id.toString() + Strings.floorName,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 16.0
@@ -89,22 +89,6 @@ class _FloorDetailsState extends State<FloorDetails> {
   Widget _buildCard(Room room) {
 
     return Card(
-      /*
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => FloorDetails(
-                key: Key(
-                    floor.floor_id.toString()
-                ),
-                floor: floor,
-              ),
-            ),
-          );
-        },
-       */
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -128,13 +112,13 @@ class _FloorDetailsState extends State<FloorDetails> {
                   Column(
                     children: <Widget>[
                       Text(
-                        "Temperature: ",
+                        Strings.temperature,
                         style: TextStyle(
                           fontSize: 16,
                         ),
                       ),
                       Text(
-                        "CO2 level",
+                        Strings.co2level,
                         style: TextStyle(
                           fontSize: 16,
                         ),
@@ -145,13 +129,13 @@ class _FloorDetailsState extends State<FloorDetails> {
                   Column(
                     children: <Widget>[
                       Text(
-                        "20 °C",
+                        Strings.temperatureSample,
                         style: TextStyle(
                           fontSize: 16,
                         ),
                       ),
                       Text(
-                        "5%",
+                        Strings.co2levelSample,
                         style: TextStyle(
                           fontSize: 16,
                         ),

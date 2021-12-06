@@ -20,21 +20,21 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  String buildingValue = 'Helsinki';
+  String buildingValue = Strings.mainBuilding;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         body: StreamBuilder<List<Building>>(
-          stream: updateData(Duration(seconds: 5), http.Client()), // fetchRooms(http.Client()),
+          stream: updateData(Duration(seconds: 5), http.Client()),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               print(snapshot);
               return Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: Text(
-                    'Error: ${snapshot.error}'
+                    Strings.error + '${snapshot.error}'
                 ),
               );
             } else if (snapshot.connectionState == ConnectionState.active && snapshot.hasData) {
@@ -171,16 +171,16 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             ListTile(
               title: Text(
-                floor.id.toString() + '. floor',
+                floor.id.toString() + Strings.floorName,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                   //color: Colors.white,
                 ),
               ),
-              minVerticalPadding: 2, // TODO find how implement a greater space between title and subtitle
+              minVerticalPadding: 2,
               subtitle: Text(
-                _countAvailableRooms(floor).toString() + ' room(s) available',
+                _countAvailableRooms(floor).toString() + Strings.availableRooms,
                 style: TextStyle(
                   fontStyle: FontStyle.italic,
                   fontSize: 16,
@@ -236,26 +236,10 @@ class _HomeState extends State<Home> {
   }
 
 }
-/*
-Future<List<Building>> fetchData(http.Client client) async {
-  final response = await client
-      .get(Uri.parse('http://206.189.16.14/getAllRoomsTesting'));
 
-  // Use the compute function to run parsePhotos in a separate isolate.
-  return parseData(response.body);
-}
-
-// A function that converts a response body into a List<Photo>.
-List<Building> parseData(String responseBody) {
-
-  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-
-  return parsed.map<Building>((json) => Building.fromJson(json)).toList();
-}
-*/
 Future<List<Building>> getData(http.Client client) async {
   final response = await client
-      .get(Uri.parse('http://206.189.16.14/getAllRoomsTesting'));
+      .get(Uri.parse(Strings.apiUrl));
 
   return parseData(response.body);
 }
@@ -272,30 +256,3 @@ Stream<List<Building>> updateData(Duration refreshTime, http.Client client) asyn
     yield await getData(client);
   }
 }
-
-/*
-update(http.Client client) async {
-  final updateResponse = await client
-      .get(Uri.parse('http://206.189.16.14:8080/register'));
-
-  final parsedUpdate = jsonDecode(updateResponse.body).cast<Map<String, dynamic>>();
-
-  int floorToUpdate = parsedUpdate.building_floor;
-  int roomToUpdate = parsedUpdate.id;
-
-  findRoom(floorToUpdate, roomToUpdate);
-
-}
-
-Room? findFloor(int floorNumber, int roomId) {
-  for (Floor floor in snapshot.data![0].floors) {
-    if (floor.id == floorNumber) {
-      for (Room room in floor.rooms) {
-        if (room.id == roomId) {
-          return room;
-        }
-      }
-    }
-  }
-}
-*/
