@@ -1,6 +1,5 @@
 class Strings {
 
-  // App informations
   static const String appTitle = 'Popup Meeting Rooms';
   static const String appBanner = 'assets/headerPic.jfif';
   static const String developedBy = 'developed by';
@@ -15,7 +14,7 @@ class Strings {
   static const String co2levelSample = '5%';
   static const String mainBuilding = 'Helsinki';
   static const String error = 'Error: ';
-  static const String availableRooms = ' romms available';
+  static const String availableRooms = ' rooms available';
   static const String apiUrl = 'http://206.189.16.14/getAllRoomsTesting';
   static const String about = 'About';
 
