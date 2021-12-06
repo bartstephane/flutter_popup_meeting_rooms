@@ -20,6 +20,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  String buildingValue = 'Helsinki';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -59,12 +61,51 @@ class _HomeState extends State<Home> {
                       centerTitle: true,
                     ),
                   ),
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 40,
+                      child: Container(
+                        color: Colors.black,
+                        child: Center(
+                          child: DropdownButton<String>(
+                            dropdownColor: Colors.black,
+                            value: buildingValue,
+                            icon: const Icon(
+                                Icons.arrow_downward,
+                            ),
+                            iconEnabledColor: Colors.yellowAccent,
+                            iconSize: 24,
+                            elevation: 16,
+                            style: const TextStyle(
+                              color: Colors.yellowAccent,
+                            ),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.yellowAccent,
+                            ),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                buildingValue = newValue!;
+                              });
+                            },
+                            items: _getBuildingNames(snapshot.data)
+                                .map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                  );
+                                }).toList(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
-                            return _buildCard(snapshot.data![0].floors[index]);
+                            return _buildCard(snapshot.data!.where((element) => element.name == buildingValue).first.floors[index]);
                           },
-                      childCount: snapshot.data![0].floors.length,
+                      childCount: snapshot.data!.where((element) => element.name == buildingValue).first.floors.length,
                     ),
                   ),
                 ],
@@ -184,6 +225,14 @@ class _HomeState extends State<Home> {
     } else {
       return Colors.redAccent;
     }
+  }
+
+  List<String> _getBuildingNames(List<Building>? data) {
+    List<String> buildingNames = List.empty(growable: true);
+    for (Building building in data!) {
+      buildingNames.add(building.name);
+    }
+    return buildingNames;
   }
 
 }
