@@ -38,6 +38,37 @@ class About extends StatelessWidget {
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.yellowAccent,
+        child: Icon(
+          Icons.settings,
+          color: Colors.black,
+        ),
+        onPressed: () {
+
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          children: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.info_outline,
+                color: Colors.yellowAccent,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => About()),
+                );
+              },
+            ),
+          ],
+        ),
+        elevation: 5.0,
+        color: Colors.black,
+      ),
     );
   }
 

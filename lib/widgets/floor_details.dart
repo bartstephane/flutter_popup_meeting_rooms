@@ -17,71 +17,69 @@ class _FloorDetailsState extends State<FloorDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: CustomScrollView(
-          shrinkWrap: true,
-          slivers: <Widget>[
-            SliverAppBar(
-              pinned: true,
-              expandedHeight: 120.0,
-              backgroundColor: Colors.black,
-              flexibleSpace: FlexibleSpaceBar(
-                title: Text(
-                  widget.floor.id.toString() + Strings.floorName,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0
-                  ),
+    return Scaffold(
+      body: CustomScrollView(
+        shrinkWrap: true,
+        slivers: <Widget>[
+          SliverAppBar(
+            pinned: true,
+            expandedHeight: 120.0,
+            backgroundColor: Colors.black,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(
+                widget.floor.id.toString() + Strings.floorName,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0
                 ),
-                background: Image.asset(
-                    Strings.appBanner,
-                    fit: BoxFit.scaleDown, scale: 2
-                ),
-                centerTitle: true,
               ),
+              background: Image.asset(
+                  Strings.appBanner,
+                  fit: BoxFit.scaleDown, scale: 2
+              ),
+              centerTitle: true,
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      return _buildCard(widget.floor.rooms[index]);
-                      },
-                childCount: widget.floor.rooms.length,
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return _buildCard(widget.floor.rooms[index]);
+                    },
+              childCount: widget.floor.rooms.length,
+            ),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.yellowAccent,
+        child: Icon(
+          Icons.settings,
+          color: Colors.black,
+        ),
+        onPressed: () {
+
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          children: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.info_outline,
+                color: Colors.yellowAccent,
               ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => About()),
+                );
+              },
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.yellowAccent,
-          child: Icon(
-            Icons.settings,
-            color: Colors.black,
-          ),
-          onPressed: () {
-
-          },
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-        bottomNavigationBar: BottomAppBar(
-          child: Row(
-            children: <Widget>[
-              IconButton(
-                icon: Icon(
-                  Icons.info_outline,
-                  color: Colors.yellowAccent,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => About()),
-                  );
-                },
-              ),
-            ],
-          ),
-          elevation: 5.0,
-          color: Colors.black,
-        ),
+        elevation: 5.0,
+        color: Colors.black,
       ),
     );
   }
