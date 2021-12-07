@@ -17,5 +17,6 @@ class Strings {
   static const String availableRooms = ' rooms available';
   static const String apiUrl = 'http://206.189.16.14/getAllRoomsTesting';
   static const String about = 'About';
+  static const String settings = 'Settings';
 
 }
