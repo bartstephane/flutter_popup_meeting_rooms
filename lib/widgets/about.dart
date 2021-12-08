@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:popup_meeting_rooms/config/strings.dart';
+import 'package:popup_meeting_rooms/widgets/settings.dart';
 
 class About extends StatelessWidget {
   @override
@@ -45,7 +46,10 @@ class About extends StatelessWidget {
           color: Colors.black,
         ),
         onPressed: () {
-
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Settings()),
+          );
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,

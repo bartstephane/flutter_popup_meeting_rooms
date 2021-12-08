@@ -3,6 +3,7 @@ import 'package:popup_meeting_rooms/business/floor.dart';
 import 'package:popup_meeting_rooms/business/room.dart';
 import 'package:popup_meeting_rooms/config/strings.dart';
 import 'package:popup_meeting_rooms/widgets/about.dart';
+import 'package:popup_meeting_rooms/widgets/settings.dart';
 
 class FloorDetails extends StatefulWidget {
   FloorDetails({Key? key, required this.floor}) : super(key: key);
@@ -57,7 +58,10 @@ class _FloorDetailsState extends State<FloorDetails> {
           color: Colors.black,
         ),
         onPressed: () {
-
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Settings()),
+          );
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,

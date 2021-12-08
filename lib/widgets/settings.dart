@@ -76,7 +76,7 @@ class Settings extends StatelessWidget {
     return Column(
       children: <Widget>[
         SizedBox(
-          height: 210,
+          height: 80,
           child: Card(
             color: Colors.black12,
             child: Column(
@@ -97,35 +97,6 @@ class Settings extends StatelessWidget {
                   ),
                   leading: Icon(
                     Icons.house,
-                    color: Colors.yellowAccent,
-                  ),
-                ),
-                Divider(
-                  thickness: 1.5,
-                  color: Colors.yellowAccent,
-                ),
-                ListTile(
-                  title: Text(
-                    Strings.phone,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.yellowAccent,
-                    ),
-                  ),
-                  leading: Icon(
-                    Icons.phone,
-                    color: Colors.yellowAccent,
-                  ),
-                ),
-                ListTile(
-                  title: Text(
-                    Strings.mail,
-                    style: TextStyle(
-                      color: Colors.yellowAccent,
-                    ),
-                  ),
-                  leading: Icon(
-                    Icons.mail_outline,
                     color: Colors.yellowAccent,
                   ),
                 ),
