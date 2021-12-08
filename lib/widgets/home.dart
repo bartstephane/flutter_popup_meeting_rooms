@@ -6,6 +6,7 @@ import 'package:popup_meeting_rooms/business/room.dart';
 import 'package:popup_meeting_rooms/config/strings.dart';
 import 'package:popup_meeting_rooms/widgets/floor_details.dart';
 import 'package:popup_meeting_rooms/widgets/rooms_by_floor.dart';
+import 'package:popup_meeting_rooms/widgets/settings.dart';
 import 'about.dart';
 import 'package:http/http.dart' as http;
 
@@ -124,7 +125,10 @@ class _HomeState extends State<Home> {
             color: Colors.black,
           ),
           onPressed: () {
-            // TODO
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Settings()),
+            );
           },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,

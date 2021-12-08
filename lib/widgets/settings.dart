@@ -74,85 +74,66 @@ class Settings extends StatelessWidget {
 
   Widget _buildCard(int index) {
     return Column(
-        children: <Widget>[
-          SizedBox(
-            height: 70,
-            child: Card(
-              color: Colors.black,
-              child: Column(
-                children: [
-                  ListTile(
-                    title: Text(
-                      Strings.developedBy,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.yellowAccent
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 210,
-            child: Card(
-              color: Colors.black,
-              child: Column(
-                children: [
-                  ListTile(
-                    title: Text(
-                      Strings.developer,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.yellowAccent,
-                      ),
-                    ),
-                    subtitle: Text(
-                      Strings.school,
-                      style: TextStyle(
-                        color: Colors.yellowAccent,
-                      ),
-                    ),
-                    leading: Icon(
-                      Icons.person_outline,
+      children: <Widget>[
+        SizedBox(
+          height: 210,
+          child: Card(
+            color: Colors.black12,
+            child: Column(
+              children: [
+                ListTile(
+                  title: Text(
+                    Strings.favoriteBuilding,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
                       color: Colors.yellowAccent,
                     ),
                   ),
-                  Divider(
-                    thickness: 1.5,
+                  subtitle: Text(
+                    Strings.mainBuilding,
+                    style: TextStyle(
+                      color: Colors.yellowAccent,
+                    ),
+                  ),
+                  leading: Icon(
+                    Icons.house,
                     color: Colors.yellowAccent,
                   ),
-                  ListTile(
-                    title: Text(
-                      Strings.phone,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Colors.yellowAccent,
-                      ),
-                    ),
-                    leading: Icon(
-                      Icons.phone,
+                ),
+                Divider(
+                  thickness: 1.5,
+                  color: Colors.yellowAccent,
+                ),
+                ListTile(
+                  title: Text(
+                    Strings.phone,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
                       color: Colors.yellowAccent,
                     ),
                   ),
-                  ListTile(
-                    title: Text(
-                      Strings.mail,
-                      style: TextStyle(
-                        color: Colors.yellowAccent,
-                      ),
-                    ),
-                    leading: Icon(
-                      Icons.mail_outline,
+                  leading: Icon(
+                    Icons.phone,
+                    color: Colors.yellowAccent,
+                  ),
+                ),
+                ListTile(
+                  title: Text(
+                    Strings.mail,
+                    style: TextStyle(
                       color: Colors.yellowAccent,
                     ),
                   ),
-                ],
-              ),
+                  leading: Icon(
+                    Icons.mail_outline,
+                    color: Colors.yellowAccent,
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
+      ],
     );
   }
 }

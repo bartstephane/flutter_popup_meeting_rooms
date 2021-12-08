@@ -18,5 +18,10 @@ class Strings {
   static const String apiUrl = 'http://206.189.16.14/getAllRoomsTesting';
   static const String about = 'About';
   static const String settings = 'Settings';
+  static const String favoriteBuilding = 'Favorite building:';
+  static const String favoriteFloor = 'Favorite floor:';
+  static const String favoriteMode = 'Favorite mode:';
+  static const String firstFloor = '1. floor';
+  static const String darkMode = 'Dark mode';
 
 }
