@@ -1,46 +1,51 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:popup_meeting_rooms/business/building.dart';
 import 'package:popup_meeting_rooms/business/floor.dart';
 import 'package:popup_meeting_rooms/business/room.dart';
 import 'package:popup_meeting_rooms/config/strings.dart';
-import 'package:popup_meeting_rooms/widgets/building.dart';
 import 'package:popup_meeting_rooms/widgets/floor_details.dart';
 import 'package:popup_meeting_rooms/widgets/rooms_by_floor.dart';
+import 'package:popup_meeting_rooms/widgets/settings.dart';
+import 'about.dart';
+import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
   const Home({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
+
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
 
+  String buildingValue = Strings.mainBuilding;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: FutureBuilder<List<Floor>>(
-          future: fetchJson(), // fetchRooms(http.Client()),
+        body: StreamBuilder<List<Building>>(
+          stream: updateData(Duration(seconds: 5), http.Client()),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               print(snapshot);
               return Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: Text(
-                    'Error: ${snapshot.error}'
+                    Strings.error + '${snapshot.error}'
                 ),
               );
-            } else if (snapshot.hasData) {
+            } else if (snapshot.connectionState == ConnectionState.active && snapshot.hasData) {
               return CustomScrollView(
                 shrinkWrap: true,
                 slivers: <Widget>[
                   SliverAppBar(
                     pinned: true,
                     expandedHeight: 120.0,
-                    backgroundColor: Color.fromARGB(1, 0, 127, 163),
+                    backgroundColor: Colors.black,
                     flexibleSpace: FlexibleSpaceBar(
                       title: Text(
                         Strings.appTitle,
@@ -49,16 +54,59 @@ class _HomeState extends State<Home> {
                             fontSize: 16.0
                           ),
                         ),
-                      background: Image.asset(Strings.appBanner, fit: BoxFit.scaleDown, scale: 2),
+                      background: Image.asset(
+                          Strings.appBanner,
+                          fit: BoxFit.scaleDown,
+                          scale: 2
+                      ),
                       centerTitle: true,
+                    ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 40,
+                      child: Container(
+                        color: Colors.black,
+                        child: Center(
+                          child: DropdownButton<String>(
+                            dropdownColor: Colors.black,
+                            value: buildingValue,
+                            icon: const Icon(
+                                Icons.arrow_downward,
+                            ),
+                            iconEnabledColor: Colors.yellowAccent,
+                            iconSize: 24,
+                            elevation: 16,
+                            style: const TextStyle(
+                              color: Colors.yellowAccent,
+                            ),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.yellowAccent,
+                            ),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                buildingValue = newValue!;
+                              });
+                            },
+                            items: _getBuildingNames(snapshot.data)
+                                .map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                  );
+                                }).toList(),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                           (BuildContext context, int index) {
-                            return _buildCard(snapshot.data![index]);
+                            return _buildCard(snapshot.data!.where((element) => element.name == buildingValue).first.floors[index]);
                           },
-                      childCount: snapshot.data!.length,
+                      childCount: snapshot.data!.where((element) => element.name == buildingValue).first.floors.length,
                     ),
                   ),
                 ],
@@ -69,6 +117,40 @@ class _HomeState extends State<Home> {
               );
             }
           },
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.yellowAccent,
+          child: Icon(
+            Icons.settings,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Settings()),
+            );
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+        bottomNavigationBar: BottomAppBar(
+          child: Row(
+            children: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.info_outline,
+                  color: Colors.yellowAccent,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => About()),
+                  );
+                },
+              ),
+            ],
+          ),
+          elevation: 5.0,
+          color: Colors.black,
         ),
       ),
     );
@@ -82,8 +164,10 @@ class _HomeState extends State<Home> {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => FloorDetails(
-                    key: Key(floor.building_floor.toString()),)),
+              builder: (context) => FloorDetails(
+                floor: floor,
+              ),
+            ),
           );
         },
         child: Column(
@@ -91,100 +175,88 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             ListTile(
               title: Text(
-                floor.building_floor.toString() + '. floor',
+                floor.id.toString() + Strings.floorName,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                  fontSize: 20,
+                  //color: Colors.white,
+                ),
+              ),
+              minVerticalPadding: 2,
+              subtitle: Text(
+                _countAvailableRooms(floor).toString() + Strings.availableRooms,
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontSize: 16,
+                  //color: Colors.white,
                 ),
               ),
             ),
-            Divider(height: 0),
             Container(
-                margin: EdgeInsets.fromLTRB(3, 3, 3, 3),
-                padding: EdgeInsets.fromLTRB(6, 6, 6, 6),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
+              margin: EdgeInsets.fromLTRB(4, 4, 4, 4),
+              padding: EdgeInsets.fromLTRB(6, 6, 6, 6),
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Container(
                 child: RoomsByFloor(
-                  key: Key(
-                      floor.building_floor.toString()
-                  ),
                   floor: floor,
                 ),
+              ),
             ),
           ],
         ),
       ),
       elevation: 1.0,
-      color: _changeColor(floor),
+      color: _changeFloorColor(floor),
     );
+
   }
-  
-  Color _changeColor(Floor floor) {
+
+  int _countAvailableRooms(Floor floor) {
     int availableRooms = 0;
     for(Room room in floor.rooms) {
-      if(room.detected == false) {
+      if (room.detected == false) {
         availableRooms++;
       }
-      print('Floor ' + floor.building_floor.toString() + ' : ' + availableRooms.toString() + ' available rooms');
-      if(availableRooms > 0) {
-        return Colors.greenAccent;
-      } else {
-        return Colors.redAccent;
-      }
     }
-    return Colors.white;
+    return availableRooms;
   }
-  
+
+  Color _changeFloorColor(Floor floor) {
+    if(_countAvailableRooms(floor) > 0) {
+      return Colors.greenAccent;
+    } else {
+      return Colors.redAccent;
+    }
+  }
+
+  List<String> _getBuildingNames(List<Building>? data) {
+    List<String> buildingNames = List.empty(growable: true);
+    for (Building building in data!) {
+      buildingNames.add(building.name);
+    }
+    return buildingNames;
+  }
+
 }
 
-/*
-Future<List<PopupMeetingRoom>> fetchPopupMeetingRooms(http.Client client) async {
+Future<List<Building>> getData(http.Client client) async {
   final response = await client
-      .get(Uri.parse('http://206.189.16.14/getAllRooms'));
+      .get(Uri.parse(Strings.apiUrl));
 
-  // Use the compute function to run parsePhotos in a separate isolate.
-  return compute(parsePopupMeetingRooms, response.body);
+  return parseData(response.body);
 }
 
-// A function that converts a response body into a List<Photo>.
-List<PopupMeetingRoom> parsePopupMeetingRooms(String responseBody) {
+List<Building> parseData(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
-  return parsed.map<PopupMeetingRoom>((json) => PopupMeetingRoom.fromJson(json)).toList();
-}
-*/
-/*
-List<Room> parseRooms(String data) {
-  final parsed = jsonDecode(data).cast<Map<String, dynamic>>();
-  return parsed.map<Room>((json) => Room.fromJson(json)).toList();
+  return parsed.map<Building>((json) => Building.fromJson(json)).toList();
 }
 
-Future<List<Room>> fetchRooms() async {
-  final String data = await rootBundle.loadString('assets/data.json');
-  return parseRooms(data);
-}
-*/
-List<Floor> parseFloors(String data) {
-
-  final parsed = jsonDecode(data).cast<Map<String, dynamic>>();
-
-  List<Room> rooms = parsed.map<Room>((json) => Room.fromJson(json)).toList();
-
-  List<Floor> floors = List.empty(growable: true);
-
-  for(int i = 1; i <= rooms[rooms.length - 1].building_floor; i++) {
-    List<Room> floorRooms = List.from(rooms);
-    Floor floor = Floor(building_floor: i, rooms: floorRooms);
-    floor.rooms.removeWhere((element) => element.building_floor != i);
-    floors.add(floor);
+Stream<List<Building>> updateData(Duration refreshTime, http.Client client) async* {
+  while (true) {
+    await Future.delayed(refreshTime);
+    yield await getData(client);
   }
-
-  return floors;
-
-}
-
-Future<List<Floor>> fetchJson() async {
-  final String data = await rootBundle.loadString('assets/data.json');
-  return parseFloors(data);
 }

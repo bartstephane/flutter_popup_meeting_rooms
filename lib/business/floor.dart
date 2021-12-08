@@ -1,12 +1,16 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:popup_meeting_rooms/business/room.dart';
 
-class Floor {
-  final int building_floor;
-  final List<Room> rooms;
+part 'floor.g.dart';
 
-  const Floor({
-    required this.building_floor,
-    required this.rooms,
-  });
+@JsonSerializable()
+class Floor {
+  Floor(this.id, this.rooms);
+
+  int id;
+  List<Room> rooms;
+
+  factory Floor.fromJson(Map<String, dynamic> json) => _$FloorFromJson(json);
+  Map<String, dynamic> toJson() => _$FloorToJson(this);
 
 }
