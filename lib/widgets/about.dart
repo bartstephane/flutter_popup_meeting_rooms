@@ -78,7 +78,7 @@ class About extends StatelessWidget {
           SizedBox(
             height: 70,
             child: Card(
-              color: Colors.black,
+              color: Colors.black12,
               child: Column(
                 children: [
                   ListTile(
@@ -97,7 +97,7 @@ class About extends StatelessWidget {
           SizedBox(
             height: 210,
             child: Card(
-              color: Colors.black,
+              color: Colors.black12,
               child: Column(
                 children: [
                   ListTile(
