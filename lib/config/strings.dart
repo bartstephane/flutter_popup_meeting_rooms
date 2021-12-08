@@ -3,10 +3,10 @@ class Strings {
   static const String appTitle = 'Popup Meeting Rooms';
   static const String appBanner = 'assets/headerPic.jfif';
   static const String developedBy = 'developed by';
-  static const String developer = 'Stéphane Bart';
+  static const String developer = 'Frontend Team';
   static const String school = 'Haaga-Helia University of Applied Sciences';
-  static const String phone = '+41 79 346 19 16';
-  static const String mail = 'stephane.bart@myy.haaga-helia.fi';
+  static const String phone = '+358 000 000 000';
+  static const String mail = 'frontend@myy.haaga-helia.fi';
   static const String floorName = '. floor';
   static const String temperature = 'Temperature: ';
   static const String co2level = 'CO2 level: ';
